@@ -1,0 +1,29 @@
+{
+  "name": "redistack",
+  "version": "1.0.0",
+  "description": "stackoverflow clone using Redis as storage engine",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Loksly/redistack.git"
+  },
+  "keywords": [
+    "redis",
+    "stackoverflow",
+    "expressjs",
+    "nodejs",
+    "loksly"
+  ],
+  "author": "Loksly",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Loksly/redistack/issues"
+  },
+  "homepage": "https://github.com/Loksly/redistack#readme",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
