@@ -168,12 +168,23 @@ The server provides this urls to access to a service:
 		</tr>
 		<tr>
 			<th scope="row">GET</i></th>
-			<th scope="row">/api/v1/posts/<i>:id</i></th>
-			<td>Retrieves information related to the post with id <i>id</i></td>
+			<th scope="row">/api/v1/questions/<i>:id</i></th>
+			<td>Retrieves information related to the question with id <i>id</i></td>
 			<td>
 				<ul>
 					<li>id must be a positive number</li>
-					<li>should belong to an existing post</li>
+					<li>should belong to an existing question</li>
+				</ul>
+			</td>
+		</tr>
+		<tr>
+			<th scope="row">GET</i></th>
+			<th scope="row">/api/v1/questions/tagged/<i>:tag</i></th>
+			<td>Retrieves questions related to the tag with name <i>tag</i></td>
+			<td>
+				<ul>
+					<li>tag must be a non empty string</li>
+					<li>should belong to an existing tag</li>
 				</ul>
 			</td>
 		</tr>

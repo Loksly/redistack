@@ -38,3 +38,6 @@ jspm_packages
 
 # Bower on production components
 public/bower_components
+
+# stackoverflow data
+data/

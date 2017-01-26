@@ -4,6 +4,6 @@
 		"port": 6379
 	},
 	"httpserver": {
-		"port": 8888
+		"port": 8080
 	}
 }
