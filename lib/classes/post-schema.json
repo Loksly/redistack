@@ -1,0 +1,26 @@
+{
+	"entity": "Post",
+	"schema": {
+		"Id": {"key": true, "type": "Number"},
+		"PostTypeId": {"key": true, "type": "Number"},
+		"AcceptedAnswerId": "Number",
+		"AnswerCount": "Number",
+		"Body": "String",
+		"ClosedDate": "Date",
+		"CommentCount": "Number",
+		"CommunityOwnedDate": "Date",
+		"CreationDate": "Date",
+		"FavoriteCount": "Number",
+		"LastActivityDate": "String",
+		"LastEditDate": "Date",
+		"LastEditorDisplayName": "String",
+		"LastEditorUserId": "Number",
+		"OwnerDisplayName": "String",
+		"OwnerUserId": "Number",
+		"ParentId": "Number",
+		"Score": "Number",
+		"Tags": "String",
+		"Title": "String",
+		"ViewCount": "Number"
+	}
+}

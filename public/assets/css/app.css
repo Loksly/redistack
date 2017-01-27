@@ -132,3 +132,13 @@ span.name {
 	font-size: 1.1em;
 	padding-left: 5px;
 }
+
+
+.stats > div{
+	font-size: 17px;
+    font-weight: 300;
+    color: #6a737c;
+    float:left;
+    border:solid thin #ccc;
+    text-align:center;
+}
