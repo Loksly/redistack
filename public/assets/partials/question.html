@@ -1,0 +1,18 @@
+<md-content class="md-padding" layout-xs="column" layout="row">
+	<div class="md-padding">
+		<md-card>
+				<md-card-title>
+					<md-card-title-text>
+						<span class="md-headline">{{question.Title}}</span>
+					</md-card-title-text>
+				</md-card-title>
+				<md-card-content>
+					<div ng-bind-html="question.Body"></div>
+				</md-card-content>
+				<md-card-actions layout="row" layout-align="end center">
+					<md-button>Action 1</md-button>
+					<md-button>Action 2</md-button>
+				</md-card-actions>
+			</md-card>
+	</div>
+</md-content>

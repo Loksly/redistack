@@ -135,10 +135,11 @@ span.name {
 
 
 .stats > div{
-	font-size: 17px;
+	font-size: small;
     font-weight: 300;
     color: #6a737c;
     float:left;
     border:solid thin #ccc;
     text-align:center;
 }
+.fullwidth{ width: 100% }

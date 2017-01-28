@@ -1,0 +1,10 @@
+{
+	"entity": "Tag",
+	"schema": {
+		"Id": {"key": true, "type": "Number"},
+		"TagName": "String",
+		"Count": "Number",
+		"WikiPostId": "Number",
+		"ExcerptPostId": "Number"
+	}
+}

@@ -133,7 +133,7 @@ Then you just need to run the app using:
 $ node index.js
 ```
 
-Then open your web browser to: [http://localhost:8888/](http://localhost:8888/) and enjoy.
+Then open your web browser to: [http://localhost:8080/](http://localhost:8080/) and enjoy.
 
 ## Rest server API, JSON version
 
@@ -190,8 +190,6 @@ The server provides this urls to access to a service:
 		</tr>
 	</tbody>
 </table>
-
-
 
 
 ## Pagination information

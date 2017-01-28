@@ -5,6 +5,11 @@
 		"debug": true
 	},
 	"httpserver": {
-		"port": 8080
-	}
+		"port": 8080,
+		"publicpath": "public"
+	},
+	"entities": [
+		{"serviceprefix": "questions", "schema": "./lib/classes/post-schema.json"},
+		{"serviceprefix": "tags", "schema": "./lib/classes/tag-schema.json"}
+	]
 }
