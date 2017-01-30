@@ -2,40 +2,64 @@
 	const csv = require('csv'),
 		fs = require('fs'),
 		zlib = require('zlib'),
+		Q = require('q'),
 		RedisDb = require('./lib/redis-db'),
 		config = require('./config.json'),
-		Entity = require('./lib/entity'),
-		PostSchema = require('./lib/classes/post-schema');
+		Entity = require('./lib/entity')
+		;
 
-	if (process.argv.length < 3){
-		console.log("Missing arguments", process.argv[0], process.argv[1], "file");
+	function processFile(entity, filename, db){
+		let gunzip = zlib.createGunzip();
+		let parser = csv.parse({columns: true}),
+			rs = fs.createReadStream(filename),
+			defer = Q.defer();
+
+		rs.pipe(gunzip).pipe(parser);
+		parser.on('readable', function(){
+			while(data = parser.read()){
+				db
+					.saveEntity(entity, data)
+					.then(function(){
+						logger.log(data.Id);
+					});
+				//parche
+				if (typeof data.PostTypeId !== 'undefined' && data.PostTypeId === "1"){
+					db.addToSet(entity, 'PostTypeId1', data);
+				}
+			}
+		});
+		parser.on('end', function(){
+			defer.resolve();	
+		});
+		return defer.promise;
+	}
+
+	if (process.argv.length < 2){
+		console.log("Missing arguments", process.argv[0], process.argv[1]);
 		process.exit(-1);
 	}
 
-	let postType = new Entity(PostSchema),
-		gunzip = zlib.createGunzip();;
+	let db = new RedisDb(config.redis)
+	
 
-	let parser = csv.parse({columns: true}),
-		rs = fs.createReadStream(process.argv[2]),
-		db = new RedisDb(config.redis);
-
-	rs.pipe(gunzip).pipe(parser);
 	db.connect();
 
-	parser.on('readable', function(){
-		while(data = parser.read()){
-			db
-				.saveEntity(postType, data)
-				.then(function(){
-					logger.log(data.Id);
-				});
-			if (data.PostTypeId === "1"){
-				db.addToSet(postType, 'PostTypeId1', data);
-			}
-		}
-	});
+	let loadingTasks = [];
 
-	parser.on('end', function(){
+
+	for (i = config.loader.metadata.files.length - 1; i >= 0; i--) {
+		let service = config.loader.metadata.files[i].service;
+		let filename = config.loader.metadata.files[i].filename;
+
+		let schemadetails = config.entities.filter(function(e){ return e.serviceprefix === service; })[0];
+
+		let schema = JSON.parse(fs.readFileSync(schemadetails.schema));
+		let entity = new Entity(schema);
+			
+		loadingTasks.push( processFile(entity, filename, db) );
+	}
+
+	Q.all(loadingTasks).then(function(){
 		setTimeout(function(){
 			db.disconnect();
 		}, 1000);
