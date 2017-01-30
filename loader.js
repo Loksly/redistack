@@ -25,8 +25,20 @@
 				for (let i = 1, j = entity.keys.length; i < j; i++){
 					let attr = entity.keys[i];
 					if (typeof data[attr] !== 'undefined' && data[attr] !== ''){
-						let setname = attr + '|' + data[attr];
-						db.addToSet(entity, setname, data);
+						let value = data[attr];
+						let values = [ value ];
+						if (typeof entity.config.schema[ attr ].splitBy !== 'undefined' && entity.config.schema[ attr ].splitBy !== ''){
+							values = value.split( entity.config.schema[ attr ].splitBy ).map(function(str){
+								for (let i = 0, j = entity.config.schema[ attr ].remove.length; i < j; i++){
+									str = str.replace(entity.config.schema[ attr ].remove[i], '');
+								}
+								return str;
+							});
+						}
+						for (let q = 0, w = values.length; q < w; q++){
+							let setname = attr + '|' + values[q];
+							db.addToSet(entity, setname, data);
+						}
 					}	
 				}
 				

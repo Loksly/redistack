@@ -1,10 +1,23 @@
+<md-content class="md-padding" layout-xs="column" layout="column">
+	<div class="uk-width-1-1">
+		<a href="/" class="breadcrumb">Redistack</a>
+	</div>
+</md-content>
 
-<md-content class="md-padding" layout-xs="column" layout="row">
+<md-content class="md-padding" layout-xs="column" layout="column">
+	<div class="md-padding" ng-if="tag">
+		<md-card class="md-padding">
+			<div class="uk-width-1-1" uk-grid>
+				<div class="uk-width-1-2"><h2>{{tag.TagName}}</h2></div>
+				<div class="uk-width-1-2">Number of posts: <strong>{{tag.Count}}</strong></div>
+			</div>
+		</md-card>
+	</div>
 	<div class="md-padding"  layout="row" layout-wrap layout-align="center center">
 		<md-card ng-repeat="question in questions" flex="30">
 			<md-card-title>
 				<div class="uk-width-1-3 stats" uk-grid>
-					<div class="votes uk-width-1-1" ng-class="{'md-bg-green-800': question.Score > 0, 'uk-text-contrast': question.Score > 0}">
+					<div class="votes uk-width-1-1" ng-class="{'md-bg-red-A700': question.Score < 0, 'md-bg-green-800': question.Score > 0, 'uk-text-contrast': question.Score > 0}">
 						<div class="mini-counts"><span title="{{question.Score}} votes">{{question.Score}}</span></div>
 						<div>votes</div>
 					</div>
@@ -25,7 +38,11 @@
 				<md-button style="min-width: auto" ng-repeat="tag in question.TagsA" href="/questions/tagged/{{tag}}">{{tag}}</md-button>
 			</md-card-actions>
 		</md-card>
-		<md-card ng-if="selectedquestion">
+	</div>
+	<div class="md-padding">
+		<md-card class="md-padding" layout="row" layout-align="center center">
+			<md-button href="{{previousPageLink}}" ng-if="previousPageLink">Previous</md-button>
+			<md-button href="{{nextPageLink}}" ng-if="nextPageLink">Next</md-button>
 		</md-card>
 	</div>
 </md-content>

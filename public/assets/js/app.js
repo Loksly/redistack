@@ -18,7 +18,9 @@
 			function($routeProvider, $locationProvider){
 				$routeProvider
 					.when('/', {templateUrl: '/assets/partials/list.html', controller: 'ListCtrl' })
+					.when('/:page', {templateUrl: '/assets/partials/list.html', controller: 'ListCtrl' })
 					.when('/questions/tagged/:tag', {templateUrl: '/assets/partials/list.html', controller: 'ListCtrl' })
+					.when('/questions/tagged/:tag/:page', {templateUrl: '/assets/partials/list.html', controller: 'ListCtrl' })
 					.when('/questions/:id', {templateUrl: '/assets/partials/question.html', controller: 'QuestionCtrl' })
 
 					.otherwise({redirectTo: '/' });
@@ -38,15 +40,23 @@
 			['Post', 'Tag', '$routeParams', '$scope', 
 			function(Post, Tag, $routeParams, $scope){
 				var instance = $scope;
+				instance.tag = false;
 				instance.readOnly = true;
 				instance.selectedtag = typeof $routeParams.tag !== 'undefined' ? $routeParams.tag : false;
+				instance.page = typeof $routeParams.page !== 'undefined' ? parseInt($routeParams.page) : 1;
+				instance.prefix = instance.selectedtag ? '/questions/tagged/' + instance.selectedtag : '/';
+				instance.previousPageLink = instance.page === 1 ? false : (instance.prefix + '/' + (instance.page - 1) );
+				instance.nextPageLink = (instance.prefix + '/' + (instance.page + 1) );
 				if (instance.selectedtag){
-					instance.tag = Tag.get({ id: instance.selectedtag });
-					instance.questions = Post.query({tag: instance.selectedtag}, function(){ buildTags(instance.questions);	});
+					Tag.query({ TagName: instance.selectedtag }, function(data){
+						if (data.length > 0){
+							instance.tag = data[0];
+						}
+					});
+					instance.questions = Post.query({Tags: instance.selectedtag, page: instance.page}, function(){ buildTags(instance.questions);	});
 				} else {
-					instance.questions = Post.query({'PostTypeId': 1}, function(){ buildTags(instance.questions);	});
+					instance.questions = Post.query({'PostTypeId': 1, page: instance.page}, function(){ buildTags(instance.questions);	});
 				}
-				
 			}
 		])
 		.controller('QuestionCtrl',

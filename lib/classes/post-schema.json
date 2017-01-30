@@ -4,6 +4,7 @@
 		"Id": {"key": true, "type": "Number"},
 		"PostTypeId": {"key": true, "type": "Number"},
 		"ParentId": {"key": true, "type": "Number"},
+		"Tags": {"key": true, "type": "String", "splitBy": "><", "remove": ["<", ">"]},
 		"AcceptedAnswerId": "Number",
 		"AnswerCount": "Number",
 		"Body": "String",
@@ -19,7 +20,6 @@
 		"OwnerDisplayName": "String",
 		"OwnerUserId": "Number",
 		"Score": "Number",
-		"Tags": "String",
 		"Title": "String",
 		"ViewCount": "Number"
 	}

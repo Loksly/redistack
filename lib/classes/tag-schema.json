@@ -2,7 +2,7 @@
 	"entity": "Tag",
 	"schema": {
 		"Id": {"key": true, "type": "Number"},
-		"TagName": "String",
+		"TagName": {"key": true, "type": "String"},
 		"Count": "Number",
 		"WikiPostId": "Number",
 		"ExcerptPostId": "Number"
