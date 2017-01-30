@@ -3,6 +3,7 @@
 	"schema": {
 		"Id": {"key": true, "type": "Number"},
 		"PostTypeId": {"key": true, "type": "Number"},
+		"ParentId": {"key": true, "type": "Number"},
 		"AcceptedAnswerId": "Number",
 		"AnswerCount": "Number",
 		"Body": "String",
@@ -17,7 +18,6 @@
 		"LastEditorUserId": "Number",
 		"OwnerDisplayName": "String",
 		"OwnerUserId": "Number",
-		"ParentId": "Number",
 		"Score": "Number",
 		"Tags": "String",
 		"Title": "String",

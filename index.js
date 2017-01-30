@@ -28,7 +28,6 @@
 		process.exit(-1);
 	}
 
-
 	app.use('/', express.static(publicpath));
 	app.get('*', function(req, res){
 		res.sendFile( "index.html", {root: publicpath });

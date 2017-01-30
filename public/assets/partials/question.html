@@ -1,4 +1,4 @@
-<md-content class="md-padding" layout-xs="column" layout="row">
+<md-content class="md-padding" layout-xs="column" layout="column">
 	<div class="md-padding">
 		<md-card>
 			<md-card-title>
@@ -7,8 +7,28 @@
 				</md-card-title-text>
 				<md-card-title-media>
 					<div class="md-media card-media">
-						<img ng-src="{{user.ProfileImageUrl}}" class="md-avatar" />
-						<p style="text-align: center;">{{user.DisplayName}}</p>
+						<img ng-src="{{question.user.ProfileImageUrl}}" class="md-avatar" ng-if="question.user.ProfileImageUrl" />
+						<p style="text-align: center;">{{question.user.DisplayName}}</p>
+					</div>
+				</md-card-title-media>
+			</md-card-title>
+			<md-card-content style="clear:both">
+				<div ng-bind-html="question.Body"></div>
+			</md-card-content>
+			<md-card-actions layout="row" layout-align="end center">
+				<md-button>Action 1</md-button>
+				<md-button>Action 2</md-button>
+			</md-card-actions>
+		</md-card>
+	</div>
+	<h3>Answers</h3>
+	<div class="md-padding" ng-repeat="question in answers">
+		<md-card>
+			<md-card-title>
+				<md-card-title-media>
+					<div class="md-media card-media">
+						<img ng-src="{{question.user.ProfileImageUrl}}" class="md-avatar" ng-if="question.user.ProfileImageUrl" />
+						<p style="text-align: center;">{{question.user.DisplayName}}</p>
 					</div>
 				</md-card-title-media>
 			</md-card-title>

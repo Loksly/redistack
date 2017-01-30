@@ -22,10 +22,14 @@
 					.then(function(){
 						logger.log(data.Id);
 					});
-				//parche
-				if (typeof data.PostTypeId !== 'undefined' && data.PostTypeId === "1"){
-					db.addToSet(entity, 'PostTypeId1', data);
+				for (let i = 1, j = entity.keys.length; i < j; i++){
+					let attr = entity.keys[i];
+					if (typeof data[attr] !== 'undefined' && data[attr] !== ''){
+						let setname = attr + '|' + data[attr];
+						db.addToSet(entity, setname, data);
+					}	
 				}
+				
 			}
 		});
 		parser.on('end', function(){
@@ -33,7 +37,6 @@
 		});
 		return defer.promise;
 	}
-
 
 	let db = new RedisDb(config.redis);
 	db.connect();

@@ -25,8 +25,8 @@
 				$locationProvider.html5Mode(true);
 			}
 		])
-		.factory('Question', ['$resource', function($resource){
-			return $resource('/api/v1/questions/:id', {}, {query: {method: 'GET', isArray: true }});
+		.factory('Post', ['$resource', function($resource){
+			return $resource('/api/v1/posts/:id', {}, {query: {method: 'GET', isArray: true }});
 		}])
 		.factory('Tag', ['$resource', function($resource){
 			return $resource('/api/v1/tags/:id', {}, {query: {method: 'GET', isArray: true }});
@@ -35,27 +35,32 @@
 			return $resource('/api/v1/users/:id', {}, {query: {method: 'GET', isArray: true }});
 		}])
 		.controller('ListCtrl',
-			['Question', 'Tag', '$routeParams', '$scope', 
-			function(Question, Tag, $routeParams, $scope){
+			['Post', 'Tag', '$routeParams', '$scope', 
+			function(Post, Tag, $routeParams, $scope){
 				var instance = $scope;
 				instance.readOnly = true;
 				instance.selectedtag = typeof $routeParams.tag !== 'undefined' ? $routeParams.tag : false;
 				if (instance.selectedtag){
 					instance.tag = Tag.get({ id: instance.selectedtag });
-					instance.questions = Question.query({tag: instance.selectedtag}, function(){ buildTags(instance.questions);	});
+					instance.questions = Post.query({tag: instance.selectedtag}, function(){ buildTags(instance.questions);	});
 				} else {
-					instance.questions = Question.query(function(){ buildTags(instance.questions);	});
+					instance.questions = Post.query({'PostTypeId': 1}, function(){ buildTags(instance.questions);	});
 				}
 				
 			}
 		])
 		.controller('QuestionCtrl',
-			['Question', 'User', '$routeParams', '$scope', '$sce',
-			function(Question, User, $routeParams, $scope, $sce){
+			['Post', 'User', '$routeParams', '$scope', '$sce',
+			function(Post, User, $routeParams, $scope, $sce){
 				var instance = $scope;
-				instance.question = Question.get({ id: $routeParams.id }, function(){
+				instance.question = Post.get({ id: $routeParams.id }, function(){
 					instance.question.Body = $sce.trustAsHtml(instance.question.Body);
-					instance.user = User.get({id: instance.question.OwnerUserId});
+					instance.question.user = User.get({id: instance.question.OwnerUserId});
+				});
+				instance.answers = Post.query({'ParentId': $routeParams.id}, function(){
+					for(var i = 0, j = instance.answers.length; i < j; i++){
+						instance.answers[i].user = User.get({id: instance.answers[i].OwnerUserId});
+					}
 				});
 			}
 		]);
