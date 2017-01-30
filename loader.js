@@ -1,6 +1,7 @@
 (function(process, logger){
 	const csv = require('csv'),
 		fs = require('fs'),
+		zlib = require('zlib'),
 		RedisDb = require('./lib/redis-db'),
 		config = require('./config.json'),
 		Entity = require('./lib/entity'),
@@ -11,19 +12,15 @@
 		process.exit(-1);
 	}
 
-	let postType = new Entity(PostSchema);
+	let postType = new Entity(PostSchema),
+		gunzip = zlib.createGunzip();;
 
 	let parser = csv.parse({columns: true}),
 		rs = fs.createReadStream(process.argv[2]),
 		db = new RedisDb(config.redis);
 
+	rs.pipe(gunzip).pipe(parser);
 	db.connect();
-	
-	rs.on('readable', function(){
-		while(data = rs.read()){
-			parser.write(data);
-		}
-	});
 
 	parser.on('readable', function(){
 		while(data = parser.read()){
