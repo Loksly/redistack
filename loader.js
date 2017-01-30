@@ -34,18 +34,11 @@
 		return defer.promise;
 	}
 
-	if (process.argv.length < 2){
-		console.log("Missing arguments", process.argv[0], process.argv[1]);
-		process.exit(-1);
-	}
 
-	let db = new RedisDb(config.redis)
-	
-
+	let db = new RedisDb(config.redis);
 	db.connect();
 
 	let loadingTasks = [];
-
 
 	for (i = config.loader.metadata.files.length - 1; i >= 0; i--) {
 		let service = config.loader.metadata.files[i].service;

@@ -1,0 +1,19 @@
+{
+	"entity": "User",
+	"schema": {
+		"Id": {"key": true, "type": "Number"},
+		"DisplayName": "String",
+		"Views": "Number",
+		"DownVotes": "Number",
+		"LastAccessDate": "Date",
+		"ProfileImageUrl": "String",
+		"WebsiteUrl": "String",
+		"Reputation": "String",
+		"Location": "String",
+		"Age": "Number",
+		"UpVotes": "Number",
+		"CreationDate": "Date",
+		"AboutMe": "String",
+		"AccountId": "Number"
+	}
+}

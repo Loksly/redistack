@@ -5,17 +5,19 @@
 		"debug": true
 	},
 	"httpserver": {
-		"port": 8090,
+		"port": 8080,
 		"publicpath": "public"
 	},
 	"entities": [
 		{"serviceprefix": "questions", "schema": "./lib/classes/post-schema.json"},
+		{"serviceprefix": "users", "schema": "./lib/classes/user-schema.json"},
 		{"serviceprefix": "tags", "schema": "./lib/classes/tag-schema.json"}
 	],
 	"loader": {
 		"metadata": {
 			"files":[
 				{"filename": "data/posts.csv.gz", "service": "questions" },
+				{"filename": "data/users.csv.gz", "service": "users" },
 				{"filename": "data/tags.csv.gz", "service": "tags" }
 			]
 		}

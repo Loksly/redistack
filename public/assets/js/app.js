@@ -31,6 +31,9 @@
 		.factory('Tag', ['$resource', function($resource){
 			return $resource('/api/v1/tags/:id', {}, {query: {method: 'GET', isArray: true }});
 		}])
+		.factory('User', ['$resource', function($resource){
+			return $resource('/api/v1/users/:id', {}, {query: {method: 'GET', isArray: true }});
+		}])
 		.controller('ListCtrl',
 			['Question', 'Tag', '$routeParams', '$scope', 
 			function(Question, Tag, $routeParams, $scope){
@@ -47,11 +50,12 @@
 			}
 		])
 		.controller('QuestionCtrl',
-			['Question', '$routeParams', '$scope', '$sce',
-			function(Question, $routeParams, $scope, $sce){
+			['Question', 'User', '$routeParams', '$scope', '$sce',
+			function(Question, User, $routeParams, $scope, $sce){
 				var instance = $scope;
 				instance.question = Question.get({ id: $routeParams.id }, function(){
 					instance.question.Body = $sce.trustAsHtml(instance.question.Body);
+					instance.user = User.get({id: instance.question.OwnerUserId});
 				});
 			}
 		]);
