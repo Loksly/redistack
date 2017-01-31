@@ -125,6 +125,15 @@ $ bower install
 $ bash data.bash
 ```
 
+
+*Load the data*:
+
+```bash
+$ node loader.js
+```
+
+
+
 *Run the server*:
 
 Then you just need to run the app using:
@@ -134,10 +143,12 @@ $ node index.js
 ```
 
 Then open your web browser to: [http://localhost:8080/](http://localhost:8080/) and enjoy.
+If you need to change the port check the _config.json_ file.
+
 
 ## Rest server API, JSON version
 
-The server provides this urls to access to a service:
+The server provides some urls to access to a service, check this examples:
 
 <table>
 	<thead>
@@ -199,11 +210,14 @@ The server provides this urls to access to a service:
 	</tbody>
 </table>
 
+## Where is the magic?
 
-## Pagination information
+* There is a metadata description about what a model has. Feel free to read an [example](./lib/classes/post-schema.json).
+* There is a class called [Entity](./lib/entity.js) that encapsulates that metadata description for each of the models of your application.
+* There is a database wrapper for [Redis](./lib/redis-db.js) that has methods for saving Entities objects, for adding and removing from a set, for checking if an Entity object belongs to a set, an several kind of find methods.
+* There is a [REST helper](./lib/resthelper.js) that uses a database to retrieve data and send it back to a client. It's supposed to be used with _expressjs_.
+* There is a [loader](./loader.js) that checks the (config file)[config.json] and using the Entity information inserts csv.gz files on the database.   
 
-Options:
 
-* http://www.restapitutorial.com/httpstatuscodes.html
-* https://medium.com/@jonasrenault/setting-up-pagination-with-angularjs-and-django-rest-framework-4acadd4b787a
+
 
