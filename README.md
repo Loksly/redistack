@@ -216,7 +216,7 @@ The server provides some urls to access to a service, check this examples:
 * There is a class called [Entity](./lib/entity.js) that encapsulates that metadata description for each of the models of your application.
 * There is a database wrapper for [Redis](./lib/redis-db.js) that has methods for saving Entities objects, for adding and removing from a set, for checking if an Entity object belongs to a set, an several kind of find methods.
 * There is a [REST helper](./lib/resthelper.js) that uses a database to retrieve data and send it back to a client. It's supposed to be used with _expressjs_.
-* There is a [loader](./loader.js) that checks the (config file)[config.json] and using the Entity information inserts csv.gz files on the database.   
+* There is a [loader](./loader.js) that checks the [config file](config.json) and using the Entity information inserts csv.gz files on the database.   
 
 
 
